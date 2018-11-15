@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="数据降维数据降维 对于如下图所示的二维特征，我们可以找到一条支线，将所有的点映射到这条直线上，这样就将二维的数据降到一维，得到一个新的特征$z_1$，降维不仅可以让我们节省计算资源，更重要的是可以让学习算法运行的更快     同样的，我们还可以将三维数据降到二维数据     降维也可以更好的可视化数据.如下图的例子，这里一共有6个特征，该如何更好的展示这些数据？     上面的数据不利于我们对数据">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-数据降维">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/Machine Learning Notes-数据降维/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="数据降维数据降维 对于如下图所示的二维特征，我们可以找到一条支线，将所有的点映射到这条直线上，这样就将二维的数据降到一维，得到一个新的特征$z_1$，降维不仅可以让我们节省计算资源，更重要的是可以让学习算法运行的更快     同样的，我们还可以将三维数据降到二维数据     降维也可以更好的可视化数据.如下图的例子，这里一共有6个特征，该如何更好的展示这些数据？     上面的数据不利于我们对数据">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/1.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/2.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/3.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/4.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/5.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/6.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/7.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/8.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/9.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/10.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/11.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/12.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/13.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/14.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/15.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/16.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/17.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/18.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/19.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/20.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/21.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/22.png">
+<meta property="og:updated_time" content="2018-10-12T13:53:15.821Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-数据降维">
+<meta name="twitter:description" content="数据降维数据降维 对于如下图所示的二维特征，我们可以找到一条支线，将所有的点映射到这条直线上，这样就将二维的数据降到一维，得到一个新的特征$z_1$，降维不仅可以让我们节省计算资源，更重要的是可以让学习算法运行的更快     同样的，我们还可以将三维数据降到二维数据     降维也可以更好的可视化数据.如下图的例子，这里一共有6个特征，该如何更好的展示这些数据？     上面的数据不利于我们对数据">
+<meta name="twitter:image" content="http://yoursite.com/Machine%20Learning%20Notes-数据降维/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/Machine Learning Notes-数据降维/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-数据降维 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/Machine Learning Notes-数据降维/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-数据降维</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T06:11:57+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="数据降维"><a href="#数据降维" class="headerlink" title="数据降维"></a>数据降维</h1><h2 id="数据降维-1"><a href="#数据降维-1" class="headerlink" title="数据降维"></a>数据降维</h2><ul>
+<li>对于如下图所示的二维特征，我们可以找到一条支线，将所有的点映射到这条直线上，这样就将二维的数据降到一维，得到一个新的特征$z_1$，降维不仅可以让我们节省计算资源，更重要的是可以让学习算法运行的更快</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/1.png" alt="avatar"> </div></p>
+<ul>
+<li>同样的，我们还可以将三维数据降到二维数据</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/2.png" alt="avatar"> </div></p>
+<ul>
+<li>降维也可以更好的可视化数据.如下图的例子，这里一共有6个特征，该如何更好的展示这些数据？</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/3.png" alt="avatar"> </div></p>
+<ul>
+<li>上面的数据不利于我们对数据进行可视化，但是通过降维之后，我们得到如下的数据</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/4.png" alt="avatar"></div></p>
+<ul>
+<li>这样就可以轻松的描绘出这些数据了</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/5.png" alt="avatar"></div></p>
+<h2 id="主成分分析"><a href="#主成分分析" class="headerlink" title="主成分分析"></a>主成分分析</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ul>
+<li>主成分分析(PCA, Principal Components Analysis)是用来对数据降维的非监督学习算法.假设我们有如下图所示的数据，我们希望将数据降到一维，那么PCA是如何找到那条合适的直线？</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/6.png" alt="avatar"> </div></p>
+<ul>
+<li><p>如图所示.当向正斜率的直线投影时，每个样本的投影误差都很小.但是，当向负斜率的直线投影时，每个样本的投影误差都很大</p>
+</li>
+<li><p>由此，我们得到PCA的优化目的为，找到某些向量，使得每个样本对这些向量的投影距离（投射误差）和最小</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/7.png" alt="avatar"> </div></p>
+<ul>
+<li>通过上面的内容也许会让我们想到线性回归，但PCA和线性回归是完全不同的两个算法.在线性回归中（下左图），我们想要的是能够拟合数据的一条支线，最小化的是亮点之间y的差；而在PCA中（下右图）我们最小化的是点到直线的距离（注意下右图中点垂直于线的距离）.并且，在线性回归中，有一个标签y；而在PCA中所有的都是特征</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/8.png" alt="avatar"> </div></p>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/9.png" alt="avatar"> </div></p>
+<h3 id="PCA算法"><a href="#PCA算法" class="headerlink" title="PCA算法"></a>PCA算法</h3><ul>
+<li>在使用PCA之前，我们需要对数据进行特征缩放(feature scaling)或均值归一(mean normalization)</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/10.png" alt="avatar"> </div></p>
+<ul>
+<li>在PCA中，我们需要计算的就是向量u和新的特征z</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/11.png" alt="avatar"> </div></p>
+<ul>
+<li>首先，我们需要计算出矩阵$\Sigma$，然后使用奇异值分解(sigular value decomposition)来计算[U, S, V].我们需要的是n x n的矩阵U，如果我们需要将数据从n维降到k维，取U的前k列，记为$U_{reduce}$</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/12.png" alt="avatar"></div></p>
+<ul>
+<li>然后，根据矩阵乘法的原则，我们就可以将x降到k维，也就得到了向量z</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/13.png" alt="avatar"></div></p>
+<ul>
+<li>最后，总结PCA算法的运行过程</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/14.png" alt="avatar"></div></p>
+<h3 id="PCA用法"><a href="#PCA用法" class="headerlink" title="PCA用法"></a>PCA用法</h3><h4 id="恢复原数据"><a href="#恢复原数据" class="headerlink" title="恢复原数据"></a>恢复原数据</h4><ul>
+<li>在进行数据恢复的时候，我们可以通过$X^{(1)}_{approx}=U_{reduce}\cdotz^{(1)}$来得到原始数据的近似值</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/15.png" alt="avatar"> </div></p>
+<h4 id="选择合适的维度"><a href="#选择合适的维度" class="headerlink" title="选择合适的维度"></a>选择合适的维度</h4><ul>
+<li>应该如何选择K的值？一般选择一个最小的K并且满足下图中的公式</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/16.png" alt="avatar"></div></p>
+<ul>
+<li>我们可以使用下左图中的算法来选择K的值，但是这样做效率太低；更好的选择是使用下右图中的方法，在调用SVD之后，我们只需要找到一个最小的K并且满足$\sum_{i=1}^{k}s_{ii}\,\,/\,\,\sum_{i=1}^{n}s_{ii}\ge 0.99$即可</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/17.png" alt="avatar"></div></p>
+<ul>
+<li>即，K的选择过程可以总结为</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/18.png" alt="avatar"></div></p>
+<h3 id="PCA总结"><a href="#PCA总结" class="headerlink" title="PCA总结"></a>PCA总结</h3><p><div align="center"><img src="/Machine Learning Notes-数据降维/19.png" alt="avatar"></div></p>
+<ul>
+<li>使用PCA的作用之一便是方便进行数据可视化</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/20.png" alt="avatar"></div></p>
+<ul>
+<li>PCA不能被用来解决过拟合的问题</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/21.png" alt="avatar"></div></p>
+<ul>
+<li>在使用PCA之前应该考虑先使用原始数据，如果使用原始数据不能达到效果，再考虑使用PCA</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-数据降维/22.png" alt="avatar"></div></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/Machine Learning Notes-非监督学习/" rel="next" title="Machine Learning Notes-非监督学习">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-非监督学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/12/Machine Learning Notes-Homework.7/" rel="prev" title="Machine Learning Notes-Homework.7">
+                Machine Learning Notes-Homework.7 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#数据降维"><span class="nav-number">1.</span> <span class="nav-text">数据降维</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#数据降维-1"><span class="nav-number">1.1.</span> <span class="nav-text">数据降维</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主成分分析"><span class="nav-number">1.2.</span> <span class="nav-text">主成分分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA算法"><span class="nav-number">1.2.2.</span> <span class="nav-text">PCA算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA用法"><span class="nav-number">1.2.3.</span> <span class="nav-text">PCA用法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#恢复原数据"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">恢复原数据</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#选择合适的维度"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">选择合适的维度</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PCA总结"><span class="nav-number">1.2.4.</span> <span class="nav-text">PCA总结</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

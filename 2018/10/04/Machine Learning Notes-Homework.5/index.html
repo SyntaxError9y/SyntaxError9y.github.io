@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="第五次编程作业-正则化线性回归与偏差和方差正则化线性回归Loading and Visualizing Data1234567891011121314clear; close all; clcfprintf(&amp;apos;Loading and Visualizing Data ...\n&amp;apos;)load(&amp;apos;ex5data1.mat&amp;apos;);m = size(X,1);plot">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-Homework.5">
+<meta property="og:url" content="http://yoursite.com/2018/10/04/Machine Learning Notes-Homework.5/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="第五次编程作业-正则化线性回归与偏差和方差正则化线性回归Loading and Visualizing Data1234567891011121314clear; close all; clcfprintf(&amp;apos;Loading and Visualizing Data ...\n&amp;apos;)load(&amp;apos;ex5data1.mat&amp;apos;);m = size(X,1);plot">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-10-05T03:42:07.340Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-Homework.5">
+<meta name="twitter:description" content="第五次编程作业-正则化线性回归与偏差和方差正则化线性回归Loading and Visualizing Data1234567891011121314clear; close all; clcfprintf(&amp;apos;Loading and Visualizing Data ...\n&amp;apos;)load(&amp;apos;ex5data1.mat&amp;apos;);m = size(X,1);plot">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/04/Machine Learning Notes-Homework.5/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-Homework.5 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/04/Machine Learning Notes-Homework.5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-Homework.5</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-04T18:35:07+08:00">
+                2018-10-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="第五次编程作业-正则化线性回归与偏差和方差"><a href="#第五次编程作业-正则化线性回归与偏差和方差" class="headerlink" title="第五次编程作业-正则化线性回归与偏差和方差"></a>第五次编程作业-正则化线性回归与偏差和方差</h1><h2 id="正则化线性回归"><a href="#正则化线性回归" class="headerlink" title="正则化线性回归"></a>正则化线性回归</h2><h3 id="Loading-and-Visualizing-Data"><a href="#Loading-and-Visualizing-Data" class="headerlink" title="Loading and Visualizing Data"></a>Loading and Visualizing Data</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">clear; close all; clc</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Loading and Visualizing Data ...\n&apos;)</span><br><span class="line"></span><br><span class="line">load(&apos;ex5data1.mat&apos;);</span><br><span class="line"></span><br><span class="line">m = size(X,1);</span><br><span class="line"></span><br><span class="line">plot(X, y, &apos;rx&apos;, &apos;MarkerSize&apos;, 10, &apos;LineWidth&apos;, 1.5);</span><br><span class="line">xlabel(&apos;Change in water level (x)&apos;);</span><br><span class="line">ylabel(&apos;Water flowing out of the dam (y)&apos;);</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Regularized-Linear-Regression-Cost"><a href="#Regularized-Linear-Regression-Cost" class="headerlink" title="Regularized Linear Regression Cost"></a>Regularized Linear Regression Cost</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">theta = [1 ; 1];</span><br><span class="line">J = linearRegCostFunction([ones(m, 1) X], y, theta, 1);</span><br><span class="line"></span><br><span class="line">fprintf([&apos;Cost at theta = [1 ; 1]: %f&apos; &apos;\n(this value should be about 303.993192)\n&apos;],J);</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Regularized-Linear-Regression-Gradient"><a href="#Regularized-Linear-Regression-Gradient" class="headerlink" title="Regularized Linear Regression Gradient"></a>Regularized Linear Regression Gradient</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">theta = [1 ; 1];</span><br><span class="line">[J, grad] = linearRegCostFunction([ones(m, 1) X], y, theta, 1);</span><br><span class="line"></span><br><span class="line">fprintf([&apos;Gradient at theta = [1 ; 1]: [%f ; %f] &apos; &apos;\n(this value should be about [-15.303016; 598.250744])\n&apos;], grad(1), grad(2));</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Train-Linear-Regression"><a href="#Train-Linear-Regression" class="headerlink" title="Train Linear Regression"></a>Train Linear Regression</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">lambda = 0;</span><br><span class="line">[theta] = trainLinearReg([ones(m, 1) X], y, lambda);</span><br><span class="line"></span><br><span class="line">plot(X, y, &apos;rx&apos;, &apos;MarkerSize&apos;, 10, &apos;LineWidth&apos;, 1.5);</span><br><span class="line">xlabel(&apos;Change in water level (x)&apos;);</span><br><span class="line">ylabel(&apos;Water flowing out of the dam (y)&apos;);</span><br><span class="line">hold on;</span><br><span class="line">plot(X, [ones(m, 1) X]*theta, &apos;--&apos;, &apos;LineWidth&apos;, 2)</span><br><span class="line">hold off;</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="function-J-grad-linearRegCostFunction-X-y-theta-lambda"><a href="#function-J-grad-linearRegCostFunction-X-y-theta-lambda" class="headerlink" title="function [J, grad] = linearRegCostFunction(X, y, theta, lambda)"></a>function [J, grad] = linearRegCostFunction(X, y, theta, lambda)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">m = length(y);</span><br><span class="line"></span><br><span class="line">J = 0;</span><br><span class="line">grad = zeros(size(theta));</span><br><span class="line"></span><br><span class="line">J = 1 / 2 / m * sum((X * theta - y) .^ 2) + lambda / 2 / m * sum((theta(2:end)) .^ 2);</span><br><span class="line"></span><br><span class="line">temp = theta;</span><br><span class="line"></span><br><span class="line">temp(1, 1) = 0;</span><br><span class="line"></span><br><span class="line">grad = (1 / m * sum((X * theta - y) .* X) + lambda / m * temp&apos;)&apos;;</span><br></pre></td></tr></table></figure>
+<h2 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h2><h3 id="Learning-Curve-for-Linear-Regression"><a href="#Learning-Curve-for-Linear-Regression" class="headerlink" title="Learning Curve for Linear Regression"></a>Learning Curve for Linear Regression</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">lambda = 0;</span><br><span class="line">[error_train, error_val] = learningCurve([ones(m, 1) X], y, [ones(size(Xval, 1), 1) Xval], yval, lambda);</span><br><span class="line"></span><br><span class="line">plot(1:m, error_train, 1:m, error_val);</span><br><span class="line">title(&apos;Learning curve for linear regression&apos;)</span><br><span class="line">legend(&apos;Train&apos;, &apos;Cross Validation&apos;)</span><br><span class="line">xlabel(&apos;Number of training examples&apos;)</span><br><span class="line">ylabel(&apos;Error&apos;)</span><br><span class="line">axis([0 13 0 150])</span><br><span class="line"></span><br><span class="line">fprintf(&apos;# Training Examples\tTrain Error\tCross Validation Error\n&apos;);</span><br><span class="line">for i = 1:m</span><br><span class="line">    fprintf(&apos;  \t%d\t\t%f\t%f\n&apos;, i, error_train(i), error_val(i));</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Feature-Mapping-for-Polynomial-Regression"><a href="#Feature-Mapping-for-Polynomial-Regression" class="headerlink" title="Feature Mapping for Polynomial Regression"></a>Feature Mapping for Polynomial Regression</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">p = 8;</span><br><span class="line"></span><br><span class="line">X_poly = polyFeatures(X, p);</span><br><span class="line">[X_poly, mu, sigma] = featureNormalize(X_poly);</span><br><span class="line">X_poly = [ones(m, 1), X_poly];</span><br><span class="line"></span><br><span class="line">X_poly_test = polyFeatures(Xtest, p);</span><br><span class="line">X_poly_test = bsxfun(@minus, X_poly_test, mu);</span><br><span class="line">X_poly_test = bsxfun(@rdivide, X_poly_test, sigma);</span><br><span class="line">X_poly_test = [ones(size(X_poly_test, 1), 1), X_poly_test];</span><br><span class="line"></span><br><span class="line">X_poly_val = polyFeatures(Xval, p);</span><br><span class="line">X_poly_val = bsxfun(@minus, X_poly_val, mu);</span><br><span class="line">X_poly_val = bsxfun(@rdivide, X_poly_val, sigma);</span><br><span class="line">X_poly_val = [ones(size(X_poly_val, 1), 1), X_poly_val]; </span><br><span class="line"></span><br><span class="line">fprintf(&apos;Normalized Training Example 1:\n&apos;);</span><br><span class="line">fprintf(&apos;  %f  \n&apos;, X_poly(1, :));</span><br><span class="line"></span><br><span class="line">fprintf(&apos;\nProgram paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Learning-Curve-for-Polynomial-Regression"><a href="#Learning-Curve-for-Polynomial-Regression" class="headerlink" title="Learning Curve for Polynomial Regression"></a>Learning Curve for Polynomial Regression</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">lambda = 0;</span><br><span class="line">[theta] = trainLinearReg(X_poly, y, lambda);</span><br><span class="line"></span><br><span class="line">figure(1);</span><br><span class="line">plot(X, y, &apos;rx&apos;, &apos;MarkerSize&apos;, 10, &apos;LineWidth&apos;, 1.5);</span><br><span class="line">plotFit(min(X), max(X), mu, sigma, theta, p);</span><br><span class="line">xlabel(&apos;Change in water level (x)&apos;);</span><br><span class="line">ylabel(&apos;Water flowing out of the dam (y)&apos;);</span><br><span class="line">title (sprintf(&apos;Polynomial Regression Fit (lambda = %f)&apos;, lambda));</span><br><span class="line"></span><br><span class="line">figure(2);</span><br><span class="line">[error_train, error_val] = ...</span><br><span class="line">    learningCurve(X_poly, y, X_poly_val, yval, lambda);</span><br><span class="line">plot(1:m, error_train, 1:m, error_val);</span><br><span class="line"></span><br><span class="line">title(sprintf(&apos;Polynomial Regression Learning Curve (lambda = %f)&apos;, lambda));</span><br><span class="line">xlabel(&apos;Number of training examples&apos;)</span><br><span class="line">ylabel(&apos;Error&apos;)</span><br><span class="line">axis([0 13 0 100])</span><br><span class="line">legend(&apos;Train&apos;, &apos;Cross Validation&apos;)</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Polynomial Regression (lambda = %f)\n\n&apos;, lambda);</span><br><span class="line">fprintf(&apos;# Training Examples\tTrain Error\tCross Validation Error\n&apos;);</span><br><span class="line">for i = 1:m</span><br><span class="line">    fprintf(&apos;  \t%d\t\t%f\t%f\n&apos;, i, error_train(i), error_val(i));</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="Validation-for-Selecting-Lambda"><a href="#Validation-for-Selecting-Lambda" class="headerlink" title="Validation for Selecting Lambda"></a>Validation for Selecting Lambda</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[lambda_vec, error_train, error_val] = ...</span><br><span class="line">    validationCurve(X_poly, y, X_poly_val, yval);</span><br><span class="line"></span><br><span class="line">close all;</span><br><span class="line">plot(lambda_vec, error_train, lambda_vec, error_val);</span><br><span class="line">legend(&apos;Train&apos;, &apos;Cross Validation&apos;);</span><br><span class="line">xlabel(&apos;lambda&apos;);</span><br><span class="line">ylabel(&apos;Error&apos;);</span><br><span class="line"></span><br><span class="line">fprintf(&apos;lambda\t\tTrain Error\tValidation Error\n&apos;);</span><br><span class="line">for i = 1:length(lambda_vec)</span><br><span class="line">	fprintf(&apos; %f\t%f\t%f\n&apos;, ...</span><br><span class="line">            lambda_vec(i), error_train(i), error_val(i));</span><br><span class="line">end</span><br><span class="line"></span><br><span class="line">fprintf(&apos;Program paused. Press enter to continue.\n&apos;);</span><br><span class="line">pause;</span><br></pre></td></tr></table></figure>
+<h3 id="function-error-train-error-val-learningCurve-X-y-Xval-yval-lambda"><a href="#function-error-train-error-val-learningCurve-X-y-Xval-yval-lambda" class="headerlink" title="function [error_train, error_val] =learningCurve(X, y, Xval, yval, lambda)"></a>function [error_train, error_val] =learningCurve(X, y, Xval, yval, lambda)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">m = size(X, 1);</span><br><span class="line"></span><br><span class="line">error_train = zeros(m, 1);</span><br><span class="line">error_val   = zeros(m, 1);</span><br><span class="line"></span><br><span class="line">for i=1:m</span><br><span class="line">    theta = trainLinearReg(X(1:i,:), y(1:i), lambda);</span><br><span class="line">    error_train(i) = linearRegCostFunction(X(1:i,:), y(1:i), theta, 0);</span><br><span class="line">    error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="function-X-poly-polyFeatures-X-p"><a href="#function-X-poly-polyFeatures-X-p" class="headerlink" title="function [X_poly] = polyFeatures(X, p)"></a>function [X_poly] = polyFeatures(X, p)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X_poly = zeros(numel(X), p);</span><br><span class="line"></span><br><span class="line">for i=1:p</span><br><span class="line">    X_poly(:,i)=X .^ i;</span><br><span class="line">end</span><br></pre></td></tr></table></figure>
+<h3 id="function-lambda-vec-error-train-error-val-validationCurve-X-y-Xval-yval"><a href="#function-lambda-vec-error-train-error-val-validationCurve-X-y-Xval-yval" class="headerlink" title="function [lambda_vec, error_train, error_val] = validationCurve(X, y, Xval, yval)"></a>function [lambda_vec, error_train, error_val] = validationCurve(X, y, Xval, yval)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">lambda_vec = [0 0.001 0.003 0.01 0.03 0.1 0.3 1 3 10]&apos;;</span><br><span class="line"></span><br><span class="line">error_train = zeros(length(lambda_vec), 1);</span><br><span class="line">error_val = zeros(length(lambda_vec), 1);</span><br><span class="line"></span><br><span class="line">for i=1:length(lambda_vec)</span><br><span class="line">    lambda=lambda_vec(i);</span><br><span class="line">    theta = trainLinearReg(X, y, lambda);</span><br><span class="line">    error_train(i) = linearRegCostFunction(X, y, theta, 0);</span><br><span class="line">    error_val(i) = linearRegCostFunction(Xval, yval, theta, 0);</span><br><span class="line">end;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/04/Machine Learning Notes-经验方法总结/" rel="next" title="Machine Learning Notes-经验方法总结">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-经验方法总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/04/Machine Learning Notes-机器学习系统设计/" rel="prev" title="Machine Learning Notes-机器学习系统设计">
+                Machine Learning Notes-机器学习系统设计 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第五次编程作业-正则化线性回归与偏差和方差"><span class="nav-number">1.</span> <span class="nav-text">第五次编程作业-正则化线性回归与偏差和方差</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正则化线性回归"><span class="nav-number">1.1.</span> <span class="nav-text">正则化线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Loading-and-Visualizing-Data"><span class="nav-number">1.1.1.</span> <span class="nav-text">Loading and Visualizing Data</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularized-Linear-Regression-Cost"><span class="nav-number">1.1.2.</span> <span class="nav-text">Regularized Linear Regression Cost</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regularized-Linear-Regression-Gradient"><span class="nav-number">1.1.3.</span> <span class="nav-text">Regularized Linear Regression Gradient</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Train-Linear-Regression"><span class="nav-number">1.1.4.</span> <span class="nav-text">Train Linear Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-J-grad-linearRegCostFunction-X-y-theta-lambda"><span class="nav-number">1.1.5.</span> <span class="nav-text">function [J, grad] = linearRegCostFunction(X, y, theta, lambda)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#偏差与方差"><span class="nav-number">1.2.</span> <span class="nav-text">偏差与方差</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-Curve-for-Linear-Regression"><span class="nav-number">1.2.1.</span> <span class="nav-text">Learning Curve for Linear Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Feature-Mapping-for-Polynomial-Regression"><span class="nav-number">1.2.2.</span> <span class="nav-text">Feature Mapping for Polynomial Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Learning-Curve-for-Polynomial-Regression"><span class="nav-number">1.2.3.</span> <span class="nav-text">Learning Curve for Polynomial Regression</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Validation-for-Selecting-Lambda"><span class="nav-number">1.2.4.</span> <span class="nav-text">Validation for Selecting Lambda</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-error-train-error-val-learningCurve-X-y-Xval-yval-lambda"><span class="nav-number">1.2.5.</span> <span class="nav-text">function [error_train, error_val] =learningCurve(X, y, Xval, yval, lambda)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-X-poly-polyFeatures-X-p"><span class="nav-number">1.2.6.</span> <span class="nav-text">function [X_poly] = polyFeatures(X, p)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#function-lambda-vec-error-train-error-val-validationCurve-X-y-Xval-yval"><span class="nav-number">1.2.7.</span> <span class="nav-text">function [lambda_vec, error_train, error_val] = validationCurve(X, y, Xval, yval)</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

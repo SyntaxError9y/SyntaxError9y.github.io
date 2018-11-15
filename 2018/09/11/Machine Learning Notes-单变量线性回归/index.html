@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="单变量线性回归定义 由训练样例(training example)组成的集合就是训练集(training set)，如图所示，其中(x,y)就是一个训练样例，(x(i),y(i))就是第i个训练样例 一般地，令D = {x1,x2,…,xm}表示包含m个示例的数据集，每个示例由d个属性描述，则每个示例xi = (xi1;xi2;…;xid)是d维样本空间X中的一个向量，其中xij是xi在第j个属性">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-单变量线性回归">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/Machine Learning Notes-单变量线性回归/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="单变量线性回归定义 由训练样例(training example)组成的集合就是训练集(training set)，如图所示，其中(x,y)就是一个训练样例，(x(i),y(i))就是第i个训练样例 一般地，令D = {x1,x2,…,xm}表示包含m个示例的数据集，每个示例由d个属性描述，则每个示例xi = (xi1;xi2;…;xid)是d维样本空间X中的一个向量，其中xij是xi在第j个属性">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/1.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/2.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/18.gif">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/3.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/19.gif">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/20.gif">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/5.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/6.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/8.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/9.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/10.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/21.gif">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/13.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/14.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/15.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/30.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/31.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/22.gif">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/16.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/27.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/28.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/29.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/32.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/33.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/34.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/35.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/36.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/37.png">
+<meta property="og:image" content="http://yoursite.com/2018/09/11/Machine%20Learning%20Notes-单变量线性回归/Machine%20Learning%20Notes-单变量线性回归/38.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/17.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/23.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/24.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/25.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/26.png">
+<meta property="og:updated_time" content="2018-09-16T14:58:44.655Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-单变量线性回归">
+<meta name="twitter:description" content="单变量线性回归定义 由训练样例(training example)组成的集合就是训练集(training set)，如图所示，其中(x,y)就是一个训练样例，(x(i),y(i))就是第i个训练样例 一般地，令D = {x1,x2,…,xm}表示包含m个示例的数据集，每个示例由d个属性描述，则每个示例xi = (xi1;xi2;…;xid)是d维样本空间X中的一个向量，其中xij是xi在第j个属性">
+<meta name="twitter:image" content="http://yoursite.com/Machine%20Learning%20Notes-单变量线性回归/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/Machine Learning Notes-单变量线性回归/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-单变量线性回归 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/Machine Learning Notes-单变量线性回归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-单变量线性回归</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-11T16:22:48+08:00">
+                2018-09-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="单变量线性回归"><a href="#单变量线性回归" class="headerlink" title="单变量线性回归"></a>单变量线性回归</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ul>
+<li>由训练样例(training example)组成的集合就是训练集(training set)，如图所示，其中(x,y)就是一个训练样例，(x<sup>(i)</sup>,y<sup>(i)</sup>)就是第i个训练样例</li>
+<li>一般地，令D = {x<sub>1</sub>,x<sub>2</sub>,…,x<sub>m</sub>}表示包含m个示例的数据集，每个示例由d个属性描述，则每个示例x<sub>i</sub> = (x<sub>i1</sub>;x<sub>i2</sub>;…;x<sub>id</sub>)是d维样本空间X中的一个向量，其中x<sub>ij</sub>是x<sub>i</sub>在第j个属性上的取值</li>
+<li>特别的，当属性的数量为1时，称之为单变量线性回归<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/1.png" alt="avatar"></div></li>
+</ul>
+<h2 id="假设函数-Hypothesis-Function-hθ-x"><a href="#假设函数-Hypothesis-Function-hθ-x" class="headerlink" title="假设函数(Hypothesis Function)-hθ(x)"></a>假设函数(Hypothesis Function)-h<sub>θ</sub>(x)</h2><ul>
+<li>使用某种学习算法对训练集的数据进行训练，我们可以得到假设函数，即特征同标记之间的某种关系<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/2.png" alt="avatar"></div></li>
+<li>在房价的例子中，假设函数就是一个房价关于房子面积的函数学习算法的目的就是为了得到这个函数，这样在这之后，给定一个房子的面积，我们就可以对其房价进行预测了</li>
+<li>我们可以使用如下的形式表示假设函数，为了方便h<sub>θ</sub>也可以记作h(x),如下图所示的这个模型就叫做单变量的线性回归(Linear Regression with One Varibale = Univariate linear regression)<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/18.gif" alt="avatar"></div></li>
+</ul>
+<h2 id="代价函数-cost-function-J-θ0-θ1"><a href="#代价函数-cost-function-J-θ0-θ1" class="headerlink" title="代价函数(cost function)-J(θ0,θ1)"></a>代价函数(cost function)-J(θ<sub>0</sub>,θ<sub>1</sub>)</h2><ul>
+<li>只要我们知道了假设函数，就可以进行预测了.对于假设函数中的两个未知的量θ<sub>0</sub>和θ<sub>1</sub>，当选择不同的θ<sub>0</sub>和θ<sub>1</sub>时，那么模型的泛化能力肯定也不一样，如图所示，列举了三种不同的θ<sub>0</sub>和θ<sub>1</sub>下的假设函数<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/3.png" alt="avatar"></div></li>
+<li>为了选择泛化能力更强的θ<sub>0</sub>和θ<sub>1</sub>组合，我们选择使用均方误差来作为衡量标准，即我们想要每个样例的估计值与真实值之间的的差的平方的均值最小</li>
+<li>估计值同真实值之间的均方误差即为代价函数(cost function)<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/19.gif" alt="avatar"></div></li>
+<li>其中，代价函数的最小值所对应的θ<sub>0</sub>和θ<sub>1</sub>即为对模型的优化目标<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/20.gif" alt="avatar"></div></li>
+</ul>
+<h2 id="假设函数与代价函数"><a href="#假设函数与代价函数" class="headerlink" title="假设函数与代价函数"></a>假设函数与代价函数</h2><ul>
+<li>首先，为了更方便的研究h<sub>θ</sub>与J(θ<sub>0</sub>,θ<sub>1</sub>)的关系，先令θ<sub>0</sub> = 0，得到了简化的假设函数，由假设函数的定义可知此时的假设函数是经过原点的直线，相应的也可以求得简化的代价函数<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/5.png" alt="avatar"></div></li>
+<li>简化之后，我们令θ<sub>1</sub> = 1，就得到h<sub>θ</sub>(x) = x,其中图中的红叉代表训练样例，通过代价函数我们可以计算出当θ<sub>0</sub> = 0，θ<sub>1</sub> = 1时，J(0,1) = 0，对应右图中的(1,0)坐标<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/6.png" alt="avater"></div></li>
+<li>重复上面的步骤，分别计算θ<sub>1</sub>不同取值时的代价函数值，将这些点连接起来就可以得到J(0,θ<sub>1</sub>)关于θ<sub>1</sub>的函数图像，我们的目标是找到一个θ使得假设函数的代价函数最小，从图像中我们可以得出，当θ<sub>1</sub> = 1时，J(θ)取得最小值的结论<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/8.png" alt="avatar"></div></li>
+<li>当我们不令θ<sub>0</sub> = 0时，代价函数的图像会发生很大的变化，当我们同时设置θ<sub>0</sub>和θ<sub>1</sub>的值时，然后再绘出J(θ<sub>0</sub>,θ<sub>1</sub>)的图形，因为此时有两个变量，所以J(θ<sub>0</sub>,θ<sub>1</sub>)是一个曲面<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/9.png" alt="avatar"></div></li>
+<li>该3D图像由MATLAB生成，但是3D图像并不适合研究，一般的我们使用二维的等高线(contour plots/figures)，可以更加直观的展示某假设函数的代价函数的变化情况<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/10.png" alt="avatar"></div></li>
+<li>右图中，距离中心越近的点表示J(θ<sub>0</sub>,θ<sub>1</sub>)的值越小，也就对应着3D图像中的最低点的位置</li>
+</ul>
+<h2 id="梯度下降法"><a href="#梯度下降法" class="headerlink" title="梯度下降法"></a>梯度下降法</h2><ul>
+<li>在向量微积分中，标量场的梯度是一个向量场。标量场中某一点的梯度指向某一点的梯度指向在这点标量场增长最快的方向（固定方向的长度），梯度的绝对值是长度为1的方向重函数最大的增加率，特别的一元函数的梯度就是导数<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/21.gif" alt="avatar"></div></li>
+<li>梯度下降法(Gradient descent)是一个一阶最优化算法，通常也称为最速下降法。要使用梯度下降法找到一个函数的局部最小值，必须向函数上当前点对应梯度（或者近似梯度）的反方向的规定步长距离点进行迭代搜索。如果相反地向梯度正方向迭代进行搜索，则会接近函数的局部极大值点（这个过程被称为梯度上升法）<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/13.png" alt="avatar"></div></li>
+<li>可以将梯度下降法和下山联系起来，如果想要尽可能快的下坡，应该每次都往坡度最大的方向下山<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/14.png" alt="avatar"></div></li>
+<li>梯度下降法得到的结果同初始状态有关，当从不同的点开始时，可能会到达不同的局部极小值（陷入局部最优解）<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/15.png" alt="avatar"></div></li>
+<li>局部最优解，是因为不同的起始点导致的算法进入不同的局部最低点<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/30.png" alt="avatar"></div></li>
+<li>但是对于线性回归的代价函数总是一个凸函数(Convex Function)，这样的函数没有局部最优解，只有全局最优解，所以我们在使用梯度下降法的时候，总会得到一个全局最优解<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/31.png" alt="avatar"></div></li>
+<li>计算<ul>
+<li>梯度可以表示为如下的形式<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/22.gif" alt="avatar"></div></li>
+<li>梯度下降法的计算过程如下图所示，其中:=表示赋值，α是用来控制下降幅度的学习率<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/16.png" alt="avatar"></div></li>
+<li>这里有一点需要注意，就是算法每次是同时(simultaneously)改变θ<sub>0</sub>，θ<sub>1</sub>的值</li>
+</ul>
+</li>
+<li>根据定义，梯度也就是代价函数对每个0的偏导，那么对于单变量线性回归结构的计算过程如下所示<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/27.png" alt="avatar"></div></li>
+<li>我们将h<sub>θ</sub>=θ<sub>0</sub>+θ<sub>1</sub>带入到J(θ<sub>0</sub>,θ<sub>1</sub>)，并分别计算对θ<sub>0</sub>和θ<sub>1</sub>求导得<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/28.png" alt="avatar"></div></li>
+<li>由此得到了完整的单变量的线性回归模型的梯度下降算法<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/29.png" alt="avatar"></div></li>
+<li>下面我们来看一下梯度下降的运行过程<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/32.png" alt="avatar"><br><div align="center"><img src="Machine Learning Notes-单变量线性回归/33.png" alt="avatar"><br><div align="center"><img src="Machine Learning Notes-单变量线性回归/34.png" alt="avatar"><br><div align="center"><img src="Machine Learning Notes-单变量线性回归/35.png" alt="avatar"><br><div align="center"><img src="Machine Learning Notes-单变量线性回归/36.png" alt="avatar"><br><div align="center"><img src="Machine Learning Notes-单变量线性回归/37.png" alt="avatar"></div></div></div></div></div></div></li>
+<li>经过多次迭代后，得到了一个拟合度最高的假设函数<br><div align="center"><img src="Machine Learning Notes-单变量线性回归/38.png" alt="avatar"></div></li>
+</ul>
+<h2 id="梯度与学习率"><a href="#梯度与学习率" class="headerlink" title="梯度与学习率"></a>梯度与学习率</h2><ul>
+<li>为了研究梯度下降法是如何帮助我们找到最优解的，我们设θ<sub>0</sub>等于0，假设一开始选取的θ<sub>1</sub>在最低点的右侧,此时的梯度(斜率)是一个正数，从图中我们可以知道，当使用算法更新θ<sub>1</sub>的时候，它的值会减小，慢慢靠近最低点<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/17.png" alt="avatar"></div></li>
+<li>类似的假设一开始选取的θ<sub>1</sub>在最低点的左侧，此时的梯度是一个负数，根据上面的算法更新θ<sub>1</sub>的时候，它的值会增大，也就是靠近最低点<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/23.png" alt="avatar"></div></li>
+<li>如果一开始选取的θ<sub>1</sub>恰好在最适位置，那么更新θ<sub>1</sub>时，它的值不会发生变化<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/24.png" alt="avatar"></div></li>
+<li>学习率α直接影响每一次梯度下降的幅度，如果α太小，那么0的值每次变化的也会很小，那么梯度下降的就会非常慢，相应的如果α太大，那么0的值每次变化的会很大，梯度下降的就会非常快</li>
+<li>梯度下降的过慢，会导致算法更新所需要的时间非常多，但是梯度下降的过快，有可能导致在梯度的下降的过程中，越过了最低点，甚至永远没有办法到达最低点（发散）<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/25.png" alt="avatar"></div></li>
+<li>随着越来越接近最低点，相应的梯度（绝对值）也会逐渐减小，所以每次下降的幅度也会逐渐减小，所以我们不需要取改变学习率α的值<br><div align="center"><img src="/Machine Learning Notes-单变量线性回归/26.png" alt="avatar"></div></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/11/Machine Learning Notes-监督学习/" rel="next" title="Machine Learning Notes-监督学习">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-监督学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/13/Machine Learning Notes-多变量线性回归/" rel="prev" title="Machine Learning Notes-多变量线性回归">
+                Machine Learning Notes-多变量线性回归 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#单变量线性回归"><span class="nav-number">1.</span> <span class="nav-text">单变量线性回归</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假设函数-Hypothesis-Function-hθ-x"><span class="nav-number">1.2.</span> <span class="nav-text">假设函数(Hypothesis Function)-hθ(x)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代价函数-cost-function-J-θ0-θ1"><span class="nav-number">1.3.</span> <span class="nav-text">代价函数(cost function)-J(θ0,θ1)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假设函数与代价函数"><span class="nav-number">1.4.</span> <span class="nav-text">假设函数与代价函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法"><span class="nav-number">1.5.</span> <span class="nav-text">梯度下降法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度与学习率"><span class="nav-number">1.6.</span> <span class="nav-text">梯度与学习率</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

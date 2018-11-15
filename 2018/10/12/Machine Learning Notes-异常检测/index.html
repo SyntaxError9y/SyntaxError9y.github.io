@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="概率密度估计异常检测 对于飞机引擎有特征$x_1,x_2…,$数据集如下所示.对于一个新的引擎，我们希望知道它是否存在异常，例如下图所示，有一个可能是正常的引擎，有一个可能是异常的引擎     对于$x_{test}$，若$p_{test}&amp;lt;ϵ$，则为异常；若$p_{test}\geϵ$，则为正常    下面是几个异常检测的应用.   高斯分布 高斯分布(Gaussian distribut">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-异常检测">
+<meta property="og:url" content="http://yoursite.com/2018/10/12/Machine Learning Notes-异常检测/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="概率密度估计异常检测 对于飞机引擎有特征$x_1,x_2…,$数据集如下所示.对于一个新的引擎，我们希望知道它是否存在异常，例如下图所示，有一个可能是正常的引擎，有一个可能是异常的引擎     对于$x_{test}$，若$p_{test}&amp;lt;ϵ$，则为异常；若$p_{test}\geϵ$，则为正常    下面是几个异常检测的应用.   高斯分布 高斯分布(Gaussian distribut">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/1.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/2.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/3.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/4.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/5.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/6.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/7.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/8.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/9.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/10.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/11.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/12.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/13.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/14.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/15.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/16.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/17.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/18.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/19.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/20.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/21.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/22.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/23.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/24.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/25.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/26.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/27.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/28.png">
+<meta property="og:updated_time" content="2018-10-13T07:27:36.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-异常检测">
+<meta name="twitter:description" content="概率密度估计异常检测 对于飞机引擎有特征$x_1,x_2…,$数据集如下所示.对于一个新的引擎，我们希望知道它是否存在异常，例如下图所示，有一个可能是正常的引擎，有一个可能是异常的引擎     对于$x_{test}$，若$p_{test}&amp;lt;ϵ$，则为异常；若$p_{test}\geϵ$，则为正常    下面是几个异常检测的应用.   高斯分布 高斯分布(Gaussian distribut">
+<meta name="twitter:image" content="http://yoursite.com/Machine%20Learning%20Notes-异常检测/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/12/Machine Learning Notes-异常检测/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-异常检测 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/12/Machine Learning Notes-异常检测/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-异常检测</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-10-12T22:32:48+08:00">
+                2018-10-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概率密度估计"><a href="#概率密度估计" class="headerlink" title="概率密度估计"></a>概率密度估计</h1><h2 id="异常检测"><a href="#异常检测" class="headerlink" title="异常检测"></a>异常检测</h2><ul>
+<li>对于飞机引擎有特征$x_1,x_2…,$数据集如下所示.对于一个新的引擎，我们希望知道它是否存在异常，例如下图所示，有一个可能是正常的引擎，有一个可能是异常的引擎</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/1.png" alt="avatar"> </div></p>
+<ul>
+<li>对于$x_{test}$，若$p_{test}&lt;ϵ$，则为异常；若$p_{test}\geϵ$，则为正常</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/2.png" alt="avatar"></div></p>
+<ul>
+<li>下面是几个异常检测的应用.</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/3.png" alt="avatar"></div></p>
+<h2 id="高斯分布"><a href="#高斯分布" class="headerlink" title="高斯分布"></a>高斯分布</h2><ul>
+<li>高斯分布(Gaussian distribution)又称正态分布(Normal distribution)，下图为高斯分布的图形以及表达式</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/4.png" alt="avatar"> </div></p>
+<ul>
+<li>高斯分布中的两个参数分别为$\mu$和$\sigma$，其中$/mu$表示期望，$\sigma^2$表示方差，下图展示了这两个参数的变化给高斯分布图像带来的影响</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/5.png" alt="avatar"> </div></p>
+<ul>
+<li>我们假设一个数据集服从高斯分布，那么$/mu$和$/sigma^2$可以通过如下公式得出：$\mu=\frac{1}{m}\sum^{m}_{i=1}x^{(i)}$,$\sigma^2=\frac{1}{m}\sum_{i=1}^{m}(x^{(i)}-\mu)^2$</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/6.png" alt="avatar"> </div></p>
+<h2 id="异常检测算法"><a href="#异常检测算法" class="headerlink" title="异常检测算法"></a>异常检测算法</h2><ul>
+<li>对于n维的特征向量，可以通过如下的公式计算p(x):</li>
+</ul>
+<p>$p(x)=p(x_1;\mu_1,\sigma_1^2)p(x_2;\mu_2,\sigma_2^2)p(x_3;\mu_3,\sigma_3^2)…p(x_n;\mu_n,\sigma_n^2)=\prod _{ j=1 }^{ n }{ p(x_j;\mu_j,\sigma_j^2) } $</p>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/7.png" alt="avatar"></div></p>
+<ul>
+<li>下图展示了异常检测算法的流程</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/8.png" alt="avatar"></div></p>
+<ul>
+<li>实例</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/9.png" alt="avatar"> </div></p>
+<h1 id="异常检测系统的开发"><a href="#异常检测系统的开发" class="headerlink" title="异常检测系统的开发"></a>异常检测系统的开发</h1><h2 id="开发与评估"><a href="#开发与评估" class="headerlink" title="开发与评估"></a>开发与评估</h2><ul>
+<li><p>在开发学习算法的时候，我们希望有一种评估这个算法的公式.为了能够评价一个异常监测系统，我们假设我们有一些含标签的数据（如果正常，则y=0；如果异常，则y=1）</p>
+</li>
+<li><p>因为我们要通过训练集来做概率密度估计，所以认定训练集都是非异常的样本</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/10.png" alt="avatar"></div></p>
+<ul>
+<li>下面举个例子.假设我们有10000个正常的引擎，20个异常的.将10000个正常中的6000个作为训练集，2000个作为交叉验证集，2000个作为测试集；再将一半异常的放入交叉验证集，另一半放入测试集.下图展示了这种分配数据的方法的具体情况，还有一种方法如下图alternative所示，但不推荐这种方法</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/11.png" alt="avatar"></div></p>
+<ul>
+<li>下图展示了一些可以用来评估算法的方式，前面讲到偏斜的数据集时已对这部分内容进行了讲解，在此不再赘述.我们可以利用交叉验证集来选取一个合适的ϵ</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/12.png" alt="avatar"></div></p>
+<h2 id="异常检测与监督学习"><a href="#异常检测与监督学习" class="headerlink" title="异常检测与监督学习"></a>异常检测与监督学习</h2><ul>
+<li>异常检测算法是一种无监督学习算法，但是这个算法中的数据集似乎是有标签的（“异常”，“正常”），那么我们何不直接使用一种监督学习的方法呢？这一节我们就来看看异常检测算法和监督学习算法的对比</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/13.png" alt="avatar"></div></p>
+<ul>
+<li>一些应用异常检测算法和监督学习的例子</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/14.png" alt="avatar"></div></p>
+<h2 id="特征选择"><a href="#特征选择" class="headerlink" title="特征选择"></a>特征选择</h2><ul>
+<li>当描绘出特征的分布图的时候，如果近似高斯分布就可以直接使用异常检测.如果不是高斯分布，则对特征进行某个数学变换也可以得到近似高斯分布，如下图所示</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/15.png" alt="avatar"></div></p>
+<ul>
+<li>某些情况下，在评估异常监测系统的时候，我们发现对于一个异常点x它的p(x)比较大，这个时候我们需要对这个点进行分析，然后总结出一个新的特征.如下图所示，一开始这个点的分布在下左图中，看上去非常像一个非异常点；分析并加入新的特征之后，这个点的分布在下右图，这个时候我们的异常监测系统就可以判断该点为异常点</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/16.png" alt="avatar"></div></p>
+<ul>
+<li>下面举个例子，假设我们想要监测计算机是否正常工作.数据特征如下图所示.假设CPU负载和网络流量成线性关系，如果想要监测某台计算机是否卡死在一个死循环中，我们可以加入$x_0$或$x_5$这样的特征.正常情况下，这个特征的值应该保持不大不小，某台计算机进入了死循环，那么它的CPU负载应该很大，但是网络流量很小，这个时候这个特征的值就会变得很大，异常监测系统就很容易监测到这样的情况</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/17.png" alt="avatar"></div></p>
+<h1 id="多元高斯分布"><a href="#多元高斯分布" class="headerlink" title="多元高斯分布"></a>多元高斯分布</h1><h2 id="多元高斯分布-1"><a href="#多元高斯分布-1" class="headerlink" title="多元高斯分布"></a>多元高斯分布</h2><ul>
+<li>如果数据集的各个样例概率相互独立分布，那么整个数据集的概率分布可以写为</li>
+</ul>
+<script type="math/tex; mode=display">p(x)=p(x_1;\mu_1,\sigma_1^2)p(x_2;\mu_2,\sigma_2^2)p(x_3;\mu_3,\sigma_3^2)...p(x_n;\mu_n,\sigma_n^2)=\prod _{ j=1 }^{ n }{ p(x_j;\mu_j,\sigma_j^2) }</script><ul>
+<li>但是如果存在某些样例存在某种关联关系，那么就需要使用多元高斯分布(Multivariate Gaussian distribution)来求解数据集的概率分布</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/18.png" alt="avatar"></div></p>
+<ul>
+<li>正常情况下，CPU负载高的时候必然会有内存使用量的增加，所以其实CPU负载同内存使用量具有某种关联关系，那么这个时候整个数据集就应该服从多元高斯分布</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/19.png" alt="avatar"></div></p>
+<ul>
+<li>在各个事件相互独立的情况下，符合高斯分布的概率分布如下图所示</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/20.png" alt="avatar"></div></p>
+<ul>
+<li>不难发现，$/Sigma$矩阵为对角矩阵，此时我们可以通过改变$/Sigma$矩阵的对角元素，来改变概率分布的情况</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/21.png" alt="avatar"></div></p>
+<ul>
+<li>当时间具有某些关联时，$\Sigma$矩阵为非对角矩阵，不同的矩阵元素代表了两时间的不同关联情况</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/22.png" alt="avatar"></div></p>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/23.png" alt="avatar"></div></p>
+<ul>
+<li>同样的，我们可以通过改变高斯分布中的另一参数$/mu$来改变分布的收敛中心位置</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/24.png" alt="avatar"></div></p>
+<h2 id="使用多元高斯分布的异常监测"><a href="#使用多元高斯分布的异常监测" class="headerlink" title="使用多元高斯分布的异常监测"></a>使用多元高斯分布的异常监测</h2><ul>
+<li><p>为了更好提高异常检测算法的性能，对于某些不满足独立分布的数据，我们可以使用多元高斯分布来计算概率分布</p>
+</li>
+<li><p>多元高斯分布的参数计算如下</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/25.png" alt="avatar"></div></p>
+<ul>
+<li>使用多元高斯分布的异常监测算法如下</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/26.png" alt="avatar"></div></p>
+<ul>
+<li>使用多元高斯分布和普通高斯分布的异常监测算法对比如下</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/27.png" alt="avatar"></div></p>
+<p><div align="center"><img src="/Machine Learning Notes-异常检测/28.png" alt="avatar"></div></p>
+<ul>
+<li>个人认为，多元高斯分布对数据的利用更好，它利用了数据之间的关联关系，如果可以确定各个数据是相互独立的，那么使用普通高斯分布即可</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/12/Machine Learning Notes-Homework.7/" rel="next" title="Machine Learning Notes-Homework.7">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-Homework.7
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/13/Machine Learning Notes-推荐系统/" rel="prev" title="Machine Learning Notes-推荐系统">
+                Machine Learning Notes-推荐系统 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概率密度估计"><span class="nav-number">1.</span> <span class="nav-text">概率密度估计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#异常检测"><span class="nav-number">1.1.</span> <span class="nav-text">异常检测</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高斯分布"><span class="nav-number">1.2.</span> <span class="nav-text">高斯分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常检测算法"><span class="nav-number">1.3.</span> <span class="nav-text">异常检测算法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异常检测系统的开发"><span class="nav-number">2.</span> <span class="nav-text">异常检测系统的开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#开发与评估"><span class="nav-number">2.1.</span> <span class="nav-text">开发与评估</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#异常检测与监督学习"><span class="nav-number">2.2.</span> <span class="nav-text">异常检测与监督学习</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#特征选择"><span class="nav-number">2.3.</span> <span class="nav-text">特征选择</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#多元高斯分布"><span class="nav-number">3.</span> <span class="nav-text">多元高斯分布</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#多元高斯分布-1"><span class="nav-number">3.1.</span> <span class="nav-text">多元高斯分布</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用多元高斯分布的异常监测"><span class="nav-number">3.2.</span> <span class="nav-text">使用多元高斯分布的异常监测</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

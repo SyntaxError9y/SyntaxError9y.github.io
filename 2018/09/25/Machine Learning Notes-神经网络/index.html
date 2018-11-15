@@ -1,0 +1,951 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="神经网络(Artificial Neural Network, ANN) 人工神经网络，简称神经网络或类神经网络，在机器学习和认识科学领域，是一种模仿生物神经网络（动物的中枢神经系统，特别是大脑）的结构和功能的数学模型或计算模型，用于对函数进行估计或近似。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统，通俗的将就是具备学习功能。现">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-神经网络">
+<meta property="og:url" content="http://yoursite.com/2018/09/25/Machine Learning Notes-神经网络/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="神经网络(Artificial Neural Network, ANN) 人工神经网络，简称神经网络或类神经网络，在机器学习和认识科学领域，是一种模仿生物神经网络（动物的中枢神经系统，特别是大脑）的结构和功能的数学模型或计算模型，用于对函数进行估计或近似。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统，通俗的将就是具备学习功能。现">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/1.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/2.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/3.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/4.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/5.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/6.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/7.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/8.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/9.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/10.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/11.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/12.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/13.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/14.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/15.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/16.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/17.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/18.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/19.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/20.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/21.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/22.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/23.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/24.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/25.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/26.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/27.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/28.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/29.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/30.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/31.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/32.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/33.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/34.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/35.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/36.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/37.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/38.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/39.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/40.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/41.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/42.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/43.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/44.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/45.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/46.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/47.png">
+<meta property="og:updated_time" content="2018-10-08T21:27:17.441Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-神经网络">
+<meta name="twitter:description" content="神经网络(Artificial Neural Network, ANN) 人工神经网络，简称神经网络或类神经网络，在机器学习和认识科学领域，是一种模仿生物神经网络（动物的中枢神经系统，特别是大脑）的结构和功能的数学模型或计算模型，用于对函数进行估计或近似。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统，通俗的将就是具备学习功能。现">
+<meta name="twitter:image" content="http://yoursite.com/Machine%20Learning%20Notes-神经网络/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/25/Machine Learning Notes-神经网络/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-神经网络 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/25/Machine Learning Notes-神经网络/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-神经网络</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-25T15:57:18+08:00">
+                2018-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="神经网络-Artificial-Neural-Network-ANN"><a href="#神经网络-Artificial-Neural-Network-ANN" class="headerlink" title="神经网络(Artificial Neural Network, ANN)"></a>神经网络(Artificial Neural Network, ANN)</h1><ul>
+<li><p>人工神经网络，简称神经网络或类神经网络，在机器学习和认识科学领域，是一种模仿生物神经网络（动物的中枢神经系统，特别是大脑）的结构和功能的数学模型或计算模型，用于对函数进行估计或近似。神经网络由大量的人工神经元联结进行计算。大多数情况下人工神经网络能在外界信息的基础上改变内部结构，是一种自适应系统，通俗的将就是具备学习功能。现代神经网络是一种非线性统计性数据建模工具。</p>
+</li>
+<li><p>神经网络的构筑理念是受到（人或其他动物）神经网络功能的运作启发而产生的。人工神经网络通常是通过一个基于数学统计学类型的学习方法(Learning Method)得以优化，所以也是数学统计学方法的一种实际应用，通过统计学的标准数学方法我们能够得到大量的可以用函数来表达的局部结构空间，另一方面在人工智能学的人工感知领域，我们通过数学统计学的应用可以来做人工感知方面的决定问题（也就是说通过统计学的方法，人工神经网络能够类似人一样具有简单的决定能力和简单的判断能力），这种方法比起正式的逻辑学推理演算更具有优势。</p>
+</li>
+<li><p>和其他机器学习方法一样，神经网络已经被用于解决各种各样的问题，例如机器视觉和语音识别。这些问题都是很难被传统基于规则的编程所解决的。</p>
+</li>
+</ul>
+<h2 id="为什么要用神经网络"><a href="#为什么要用神经网络" class="headerlink" title="为什么要用神经网络"></a>为什么要用神经网络</h2><ul>
+<li><p>对于下图所示的分类问题，我们可以利用高阶项来构造我们的假设函数.但是，实际问题往往由很多特征.例如在房价预测的问题中，我们可能有100个特征，如果想要多项式包含所有的二项式那么这个多项式会有5,000个特征（复杂度为O(n<sup>2</sup>)）.这样就会带来两个问题：1.过拟合 2.消耗大量计算资源.当然可以使用所有二次项的子集，例如x<sub>1</sub><sup>2</sup>,x<sub>2</sub><sup>2</sup>,x<sub>3</sub><sup>2</sup>,…,但是这样又容易导致欠拟合.如果想要包含所有的三次项，那大概会有170,000个特征，复杂度为O(n<sup>3</sup>)<br><div align="center"><img src="/Machine Learning Notes-神经网络/1.png" alt="avatar"></div></p>
+</li>
+<li><p>下面考虑一个计算机视觉的问题，假设我们想训练一个可以识别汽车图片的分类器，一张图片对于计算机来说就是一个高维的数字矩阵<br><div align="center"><img src="/Machine Learning Notes-神经网络/2.png" alt="avatar"></div></p>
+</li>
+<li><p>对于一个50*50的图像会有2,500个像素，即n=2,500（如果是RGB图的话n就是7,500）.如果我们想要包含所有的二次项，那么特征就是3,000,000个<br><div align="center"><img src="/Machine Learning Notes-神经网络/3.png" alt="avatar"></div></p>
+</li>
+<li><p>对于这类问题使用逻辑回归显然是没有办法解决的，这个时候就要用到神经网络</p>
+</li>
+</ul>
+<h2 id="神经网络结构"><a href="#神经网络结构" class="headerlink" title="神经网络结构"></a>神经网络结构</h2><ul>
+<li><p>下图为一个神经元(neuron)，它的输入为x<sub>1</sub>,x<sub>2</sub>,x<sub>3</sub>，有时候为了方便我们增加一个x<sub>0</sub>，叫做偏置单元(bias unit).神经元的输出为h(θ).θ也叫作权重(weights).<br><div align="center"><img src="/Machine Learning Notes-神经网络/4.png" alt="avatar"></div></p>
+</li>
+<li><p>下图为由多个神经元组成的神经网络.第一层叫做输入层(input layer).最后一层叫做输出层(output layer)，除了输入层与输出层以外的都叫做隐藏层(hidden layer)<br><div align="center"><img src="/Machine Learning Notes-神经网络/5.png" alt="avatar"></div></p>
+</li>
+<li><p>一般的，如果在第j层有s<sub>j</sub>个单元，在第j+1层有s<sub>j+1</sub>个单元，那么Θ<sup>(j)</sup>就是一个s<sub>j+1</sub>*(s<sub>j</sub>+1)的矩阵.（因为前一层增加了一个偏置单元）<br><div align="center"><img src="/Machine Learning Notes-神经网络/6.png" alt="avatar"></div></p>
+</li>
+</ul>
+<h2 id="前向传播算法"><a href="#前向传播算法" class="headerlink" title="前向传播算法"></a>前向传播算法</h2><ul>
+<li>前向传播算法其实就是由输入层计算输出的过程，这里为了提高计算的效率，我们使用向量化的算法，首先我们如下定义:<br><div align="center"><img src="/Machine Learning Notes-神经网络/7.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-神经网络/8.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-神经网络/9.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-神经网络/10.png" alt="avatar"></div></div></div></div></li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/11.png" alt="avatar"></div></p>
+<ul>
+<li><p>这样z<sup>(2)</sup>的计算就可以写成向量计算:z<sup>(2)</sup>=Θ<sup>(1)</sup>x，进而有a<sup>(2)</sup>=g(z<sup>(2)</sup>).为了和后面几层写法统一，我们令a<sup>(1)</sup>=x，所以有z<sup>(2)</sup>=Θ<sup>(1)</sup>a<sup>(1)</sup></p>
+</li>
+<li><p>我们在隐藏层加上一个偏置单元a<sub>(0)</sub><sup>(2)</sup>=1，得到<br><div align="center"><img src="/Machine Learning Notes-神经网络/12.png" alt="avatar"></div></p>
+</li>
+<li><p>同理z<sup>(3)</sup>=Θ<sup>(2)</sup>a<sup>(2)</sup>.最后h<sub>Θ</sub>(x)=a<sup>(3)</sup>=g(z<sup>(3)</sup>)</p>
+</li>
+<li><p>当我们把刚才的神经网络的输入层遮住，观察剩下部分的结构以及算法我们发现，其实这一部分其实就是前面所讲的逻辑回归.不同的是，它的输入α是由真正的特征x学习得到的，可以把α看成新的特征,x看成初始特征.这样，神经网络就相当于通过初始特征学习到新的特征，再通过新的特征进行逻辑回归得到输出结果</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/13.png" alt="avatar"></div></p>
+<ul>
+<li>更复杂的，神经网络可以表示为如下的结构<br><div align="center"><img src="/Machine Learning Notes-神经网络/14.png" alt="avatar"></div></li>
+</ul>
+<h2 id="神经网络与逻辑运算"><a href="#神经网络与逻辑运算" class="headerlink" title="神经网络与逻辑运算"></a>神经网络与逻辑运算</h2><h3 id="逻辑与"><a href="#逻辑与" class="headerlink" title="逻辑与"></a>逻辑与</h3><ul>
+<li>逻辑与运算，参数为-30,20,20.结果如下图所示<br><div align="center"><img src="/Machine Learning Notes-神经网络/15.png" alt="avatar"></div></li>
+</ul>
+<h3 id="逻辑或"><a href="#逻辑或" class="headerlink" title="逻辑或"></a>逻辑或</h3><ul>
+<li>逻辑或运算，参数为-10,20,20.结果如下图所示<br><div align="center"><img src="/Machine Learning Notes-神经网络/16.png" alt="avatar"></div></li>
+</ul>
+<h3 id="逻辑非"><a href="#逻辑非" class="headerlink" title="逻辑非"></a>逻辑非</h3><ul>
+<li>逻辑非运算，参数为10,-20.结果如下图所示<br><div align="center"><img src="/Machine Learning Notes-神经网络/17.png" alt="avatar"></div></li>
+</ul>
+<h3 id="逻辑同或"><a href="#逻辑同或" class="headerlink" title="逻辑同或"></a>逻辑同或</h3><ul>
+<li>将以上三个神经单元组成一个神经网络，可以得到同或运算<br><div align="center"><img src="/Machine Learning Notes-神经网络/18.png" alt="avatar"></div></li>
+</ul>
+<h2 id="多分类"><a href="#多分类" class="headerlink" title="多分类"></a>多分类</h2><ul>
+<li><p>下两图为多分类问题<br><div align="center"><img src="/Machine Learning Notes-神经网络/19.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-神经网络/20.png" alt="avatar"></div></div></p>
+</li>
+<li><p>在使用逻辑回归处理多分类问题时，我们定义输出y={1,2,3,…,n}，在使用神经网络处理多分类问题时，我们定义输出为只有一个元素为1的向量的形式，来分别对应不同的类别</p>
+</li>
+</ul>
+<h2 id="代价函数"><a href="#代价函数" class="headerlink" title="代价函数"></a>代价函数</h2><ul>
+<li>在神经网络中，我们使用L来表示网络的层数，例如下图中L=4.使用s<sub>l</sub>表示在第l层中单元的个数（不包括偏置单元），例如下图中s<sub>1</sub>=3,s<sub>2</sub>=5,s<sub>3</sub>=5,s<sub>L</sub>=4.分类问题可以分为二分类(Binary Classfication)和多分类(Multi-classfication).对于二分类问题，神经网络只需要一个输出单元，而对于多分类问题，则需要K个输出单元，其中K为分类的个数</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/21.png" alt="avatar"></div></p>
+<ul>
+<li>与逻辑回归的代价函数进行对比如下，其中h<sub>θ</sub>(x)是一个K维向量，我们使用(h<sub>θ</sub>(x))<sub>i</sub>来表示其第i个输出值</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/22.png" alt="avatar"></div></p>
+<ul>
+<li><p>对于前半部分，因为神经网络中有K个输出，所以先要对这K个输出的损失求和.对于后半部分，因为每一层（除输出层）都有一个θ，所以正则化需要将这些权重都包括进来（偏置单元的权重除外）</p>
+</li>
+<li><p>the double sum simply adds up the logistic regression costs calculated for each cell in the output layer</p>
+</li>
+<li><p>双和是简单地将输出层中每个单元计算的逻辑回归成本加和</p>
+</li>
+<li><p>the triple sum simply adds up the squares of all the individual Θs in the entire network</p>
+</li>
+<li><p>三和是简单地将整个网络的单个Θ的平方加和</p>
+</li>
+<li><p>the i in the triple sum does not refer to training example i</p>
+</li>
+<li>三和中的i不是指训练集中的样例</li>
+</ul>
+<h2 id="逆-反向传播算法"><a href="#逆-反向传播算法" class="headerlink" title="逆/反向传播算法"></a>逆/反向传播算法</h2><ul>
+<li>同先前的做法一样，我们希望使用梯度下降来找到最优解，代价函数的求法如上图所示，我们需要继续求解“梯度”即偏导项，求解梯度的过程就叫做逆传播算法或者反向传播算法(Backpropagation Intuition)</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/23.png" alt="avatar"></div></p>
+<ul>
+<li>首先，我们根据前向传播算法来计算a<sup>(1)</sup>、a<sup>(2)</sup>、a<sup>(3)</sup>、a<sup>(4)</sup>和z<sup>(2)</sup>、z<sup>(3)</sup>、a<sup>(4)</sup></li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/24.png" alt="avatar"></div></p>
+<ul>
+<li>在反向传播算法中我们定义每层的误差为</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/25.png" alt="avatar"></div></p>
+<ul>
+<li><p>δ<sub>j</sub><sup>(l)</sup>表示第l层第j个节点的误差，为了求出偏导项，我们首先要求出每一层的δ（不包括第一层，因为第一层是输入层）</p>
+</li>
+<li><p>首先，对于输出层即第4层（这里不考虑正则化）</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/26.png" alt="avatar"></div></p>
+<ul>
+<li>j就是输出单元的个数，用向量化的表示为：δ<sub>i</sub><sup>(4)</sup>=a<sup>(4)</sup>-y.对于剩下每层的δ<sub>i</sub><sup>(l)</sup>如下：</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/27.png" alt="avatar"></div></p>
+<ul>
+<li>写成向量的形式即为：</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/28.png" alt="avater"></div></p>
+<ul>
+<li>求出来所有的δ之后，可以很容易得到</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/29.png" alt="avater"></div></p>
+<ul>
+<li>这就是我们要求的偏导项（忽略正则化）</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/30.png" alt="avater"></div></p>
+<ul>
+<li>上面所有的推导都是基于一个样本的，现在假设有m个样本，我们可以使用批量梯度下降法(Batch Gradient Descent,BGD)来求解最优值.假设我们有一个训练集如下图所示，对于所有的l,i,j我们先令Δ<sub>ij</sub><sup>(l)</sup>=0，然后对于每一个样本，都进行如下图所示的计算并使用Δ<sub>ij</sub><sup>(l)</sup>进行累加</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/31.png" alt="avater"></div></p>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/32.png" alt="avater"></div></p>
+<ul>
+<li>最后，计算出D<sub>ij</sub><sup>(l)</sup>如下图所示，其中梯度正则化表达式应该为(j≠0时)</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/33.png" alt="avater"></div></p>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/34.png" alt="avater"></div></p>
+<h2 id="参数调整"><a href="#参数调整" class="headerlink" title="参数调整"></a>参数调整</h2><ul>
+<li>为了使用高级优化算法，我们需要调整参数，在神经网络中，参数Θ<sup>(j)</sup>是一个矩阵，而在之前利用高级优化算法的过程中，我们知道Θ是一个向量，这个时候就需要把Θ展开(Unrolling)</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/35.png" alt="avatar"></div></p>
+<ul>
+<li>如下图所示的神经网络中，Θ<sup>(1)</sup>,Θ<sup>(2)</sup>,Θ<sup>(3)</sup>,D<sup>(1)</sup>,D<sup>(2)</sup>,D<sup>(3)</sup>如下图所示，在Octave/Matlab中，我们可以使用如下代码将所有对应的矩阵转化成一个向量</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">thetaVec = [Theta1(:); Theta2(:); Theta3(:)];</span><br><span class="line">DVec = [D1(:); D2(:); D3(:)];</span><br><span class="line">%使用如下代码可以得到原来的矩阵</span><br><span class="line">Theta1 = reshape(thetaVec(1:110),10,11);</span><br><span class="line">Theta2 = reshape(thetaVec(111:220),10,11);</span><br><span class="line">Theta3 = reshape(thetaVec(221:231),1,11);</span><br></pre></td></tr></table></figure>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/36.png" alt="avatar"></div></p>
+<ul>
+<li>下图利用Unrolling来使用高级优化算法的步骤</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/37.png" alt="avatar"> </div></p>
+<h2 id="梯度检查"><a href="#梯度检查" class="headerlink" title="梯度检查"></a>梯度检查</h2><ul>
+<li><p>由于神经网络的复杂性，我们在使用梯度下降或者其他的高级优化算法式可能会出现bug，即使感觉上好像没什么问题，那么如何能有效地检查出问题呢，这个时候就需要使用Gradient Checking</p>
+</li>
+<li><p>首先，如下图所示，我们使用如下近似（其中我们取ϵ=10<sup>-4</sup>）</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/38.png" alt="avatar"> </div></p>
+<ul>
+<li>上面的例子中Θ是一个实数，在下图中，Θ是一个向量，此时是对偏导数进行数值估计</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/39.png" alt="avatar"> </div></p>
+<ul>
+<li>在实际运用中，如果我们使用如下代码来计算gradApprox.然后，我们将通过反向传播算法计算的来的DVec和gradApprox进行比较，如果这两个值近似的话，那么就说明我们的反向传播算法运行的没有问题</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/40.png" alt="avatar"> </div></p>
+<ul>
+<li>下图描述了使用Gradient Checking时的步骤，需要注意的是，在得到gradApprox之后一定要及时关闭GradientChecking，因为它会极大地消耗计算资源</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/41.png" alt="avatar"></div></p>
+<h2 id="随机初始化"><a href="#随机初始化" class="headerlink" title="随机初始化"></a>随机初始化</h2><ul>
+<li>在之前的线性回归和逻辑回归中，我们初始化Θ的值为0，在神经网络中这么做却行不通.如果初始化Θ<sub>ij</sub><sup>(l)</sup>=0，此时会有a<sub>1</sub><sup>(2)</sup>=a<sub>2</sub><sup>(2)</sup>, δ<sub>1</sub><sup>(2)</sup>=δ<sub>2</sub><sup>(2)</sup>.这样不论进行多少次更新，永远会有a<sub>1</sub><sup>(2)</sup>=a<sub>2</sub><sup>(2)</sup>，也就是说这两个神经元是完全等同的，这显然不合理.</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/42.png" alt="avatar"></div></p>
+<ul>
+<li>对于0<sup>(1)</sup>∈R<sup>10x11</sup>时，使用随机函数来进行初始化</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Theta1 = rand(10,11)*(2*INIT_EPSILON)-INIT_EPSILON</span><br></pre></td></tr></table></figure>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/43.png" alt="avatar"></div></p>
+<h2 id="模型选择"><a href="#模型选择" class="headerlink" title="模型选择"></a>模型选择</h2><ul>
+<li><p>神经网络有许许多多种结构，我们应该如何选择神经网络的结构？</p>
+</li>
+<li><p>在神经网络中，有两个是确定的，那就是输入单元的个数和输出单元的个数，因为前者就是特征的个数（维度），而后者是分类的数量.一个合理的默认值为，一个隐藏层；或者有多个隐藏层，并且这些隐藏层单元数量相等.</p>
+</li>
+</ul>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/44.png" alt="avatar"></div></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p><div align="center"><img src="/Machine Learning Notes-神经网络/45.png" alt="avatar"></div></p>
+<p><div align="center"><img src="/Machine Learning Notes-神经网络/46.png" alt="avatar"></div></p>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><ul>
+<li>无人驾驶<br><div align="center"><img src="/Machine Learning Notes-神经网络/47.png" alt="avatar"></div></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/16/Machine Learning Notes-Homework.2/" rel="next" title="Machine Learning Notes-Homework.2">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-Homework.2
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/25/Machine Learning Notes-Homework.3/" rel="prev" title="Machine Learning Notes-Homework.3">
+                Machine Learning Notes-Homework.3 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#神经网络-Artificial-Neural-Network-ANN"><span class="nav-number">1.</span> <span class="nav-text">神经网络(Artificial Neural Network, ANN)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要用神经网络"><span class="nav-number">1.1.</span> <span class="nav-text">为什么要用神经网络</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络结构"><span class="nav-number">1.2.</span> <span class="nav-text">神经网络结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#前向传播算法"><span class="nav-number">1.3.</span> <span class="nav-text">前向传播算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#神经网络与逻辑运算"><span class="nav-number">1.4.</span> <span class="nav-text">神经网络与逻辑运算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑与"><span class="nav-number">1.4.1.</span> <span class="nav-text">逻辑与</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑或"><span class="nav-number">1.4.2.</span> <span class="nav-text">逻辑或</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑非"><span class="nav-number">1.4.3.</span> <span class="nav-text">逻辑非</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#逻辑同或"><span class="nav-number">1.4.4.</span> <span class="nav-text">逻辑同或</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类"><span class="nav-number">1.5.</span> <span class="nav-text">多分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代价函数"><span class="nav-number">1.6.</span> <span class="nav-text">代价函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#逆-反向传播算法"><span class="nav-number">1.7.</span> <span class="nav-text">逆/反向传播算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数调整"><span class="nav-number">1.8.</span> <span class="nav-text">参数调整</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度检查"><span class="nav-number">1.9.</span> <span class="nav-text">梯度检查</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#随机初始化"><span class="nav-number">1.10.</span> <span class="nav-text">随机初始化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#模型选择"><span class="nav-number">1.11.</span> <span class="nav-text">模型选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">1.12.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">1.13.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Machine Learning," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="逻辑回归(Logistic Regression)分类(Classfication) 若欲预测的为离散值，此类学习任务称为分类 对于只涉及两个类别的二分类(binary classification)任务，通常称其中一个类为正类(positive class)，另一个类为反类(negative class)，通常正类对应标签为1，负类对应标签为0 涉及多个类别时，则称为多分类(multi-clas">
+<meta name="keywords" content="Machine Learning">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Machine Learning Notes-逻辑回归">
+<meta property="og:url" content="http://yoursite.com/2018/09/14/Machine Learning Notes-逻辑回归/index.html">
+<meta property="og:site_name" content="Oasis">
+<meta property="og:description" content="逻辑回归(Logistic Regression)分类(Classfication) 若欲预测的为离散值，此类学习任务称为分类 对于只涉及两个类别的二分类(binary classification)任务，通常称其中一个类为正类(positive class)，另一个类为反类(negative class)，通常正类对应标签为1，负类对应标签为0 涉及多个类别时，则称为多分类(multi-clas">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/1.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/2.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/3.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/4.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/5.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/6.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/7.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/8.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/9.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/10.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/11.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/12.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/13.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/14.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/15.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/16.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/17.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/18.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/19.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/20.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/21.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/22.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/23.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/24.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/25.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/26.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/27.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/28.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/29.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/30.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/31.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/32.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/33.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/34.png">
+<meta property="og:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/35.png">
+<meta property="og:updated_time" content="2018-09-16T01:05:21.602Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Machine Learning Notes-逻辑回归">
+<meta name="twitter:description" content="逻辑回归(Logistic Regression)分类(Classfication) 若欲预测的为离散值，此类学习任务称为分类 对于只涉及两个类别的二分类(binary classification)任务，通常称其中一个类为正类(positive class)，另一个类为反类(negative class)，通常正类对应标签为1，负类对应标签为0 涉及多个类别时，则称为多分类(multi-clas">
+<meta name="twitter:image" content="http://yoursite.com/Machine%20Learning%20Notes-逻辑回归/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/09/14/Machine Learning Notes-逻辑回归/"/>
+
+
+
+
+
+  <title>Machine Learning Notes-逻辑回归 | Oasis</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Oasis</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/Machine Learning Notes-逻辑回归/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Yu Gong">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/1.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Oasis">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Machine Learning Notes-逻辑回归</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-14T17:27:57+08:00">
+                2018-09-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="逻辑回归-Logistic-Regression"><a href="#逻辑回归-Logistic-Regression" class="headerlink" title="逻辑回归(Logistic Regression)"></a>逻辑回归(Logistic Regression)</h1><h2 id="分类-Classfication"><a href="#分类-Classfication" class="headerlink" title="分类(Classfication)"></a>分类(Classfication)</h2><ul>
+<li>若欲预测的为离散值，此类学习任务称为分类<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/1.png" alt="avatar"></div></li>
+<li>对于只涉及两个类别的二分类(binary classification)任务，通常称其中一个类为正类(positive class)，另一个类为反类(negative class)，通常正类对应标签为1，负类对应标签为0</li>
+<li>涉及多个类别时，则称为多分类(multi-class classfication)，各分类标签使用连续的数字来表示<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/2.png" alt="avatar"></div></li>
+<li>在肿瘤这个问题中，如果我们假定一个阀值为0.5，当肿瘤的大小大于0.5时预测为恶性肿瘤，当肿瘤的大小小于0.5时，预测为良性肿瘤，同时我们规定恶性肿瘤为正类，即y=1，良性肿瘤为负类，即y=2</li>
+<li>如果我们采用线性回归的方法去进行预测的话，我们可以得到如图所示的假设函数，貌似拟合效果还不错</li>
+<li>但是，如果我们增加一个远大于阀值的样例，那么假设函数就会变为如下的形式<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/3.png" alt="avatar"></div></li>
+<li>此时我们的假设函数就将变为蓝色图线的样子，很明显这是一个失败的预测，出现了很多的错误<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/4.png" alt="avatar"></div></li>
+<li>显然，最合适的莫过于垂直于x轴的蓝色直线，它可以很好地对样本进行预测</li>
+<li>然而，即使所有的训练样例的y=0或y=1，线性回归的假设函数也有可能大于1或者小于0<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/5.png" alt="avatar"></div></li>
+<li>所以，对于分类任务，我们需要特殊的模型，即逻辑回归(Logistic Regression)（逻辑回归又称对数几率回归(Logit Regression)，有些地方也翻译成逻辑斯蒂格回归）</li>
+<li>虽然这个模型叫做回归，但是它却是用来解决分类问题的模型，在逻辑回归中，0≤h<sub>θ</sub>(x)≤1<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/6.png" alt="avatar"></div></li>
+</ul>
+<h2 id="假设函数-Hypothesis-Function"><a href="#假设函数-Hypothesis-Function" class="headerlink" title="假设函数(Hypothesis Function)"></a>假设函数(Hypothesis Function)</h2><ul>
+<li>在逻辑回归中，假设函数为h<sub>θ</sub>(x)=g(θ<sup>T</sup>x)，其中g(z)叫做Sigmoid Function或者对率函数(Logistic Function)<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/7.png" alt="avatar"></div></li>
+<li>Sigmoid函数是一个在生物学中常见的S型函数，也称S型生长曲线，在信息科学中，由于其单增以及反函数单增等性质，Sigmoid函数经常被用作神经网络的阀值函数，将变量映射到0,1之间</li>
+<li>对应的假设函数可以写成<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/8.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-逻辑回归/9.png" alt="avatar"></div></div></li>
+<li>逻辑回归的假设函数，可以理解为当输入为x时，y=1或y=0的概率<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/10.png" alt="avatar"></div></li>
+<li>在下图中，我们给定一个x，它的假设函数的输出为0.7，我们可以说这个病人的肿瘤是恶性的概率为70%<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/11.png" alt="avatar"></div></li>
+</ul>
+<h2 id="决策边界-Decision-Boundary"><a href="#决策边界-Decision-Boundary" class="headerlink" title="决策边界(Decision Boundary)"></a>决策边界(Decision Boundary)</h2><ul>
+<li>如图所示的Sigmoid函数，我们可以看到，当z&gt;0的时候g(z)≥0.5即预测y=1；当z<0的时候g(z)<0.5即预测y=0 <div="" align="center"><img src="/Machine Learning Notes-逻辑回归/12.png" alt="avatar"></0的时候g(z)<0.5即预测y=0></li>
+<li>在逻辑回归中，我们的z=θ<sup>T</sup>x，所以有：当θ<sup>T</sup>x≥0时，预测y=1；当θ<sup>T</sup>x<0时，预测y=0 <div="" align="center"><img src="/Machine Learning Notes-逻辑回归/13.png" alt="avatar"></0时，预测y=0></li>
+<li>下面举一个例子，看一看什么是决策边界，如下图所示，左边为数据集，假设此时我们已经通过训练得到了θ=[-3;1;1]，由上图可知，当θ<sup>T</sup>x≥0时，预测y=1；也即当x<sub>1</sub>+x<sub>2</sub>≥3时，预测y=1</li>
+<li>我们在坐标中画出x<sub>1</sub>+x<sub>2</sub>=3的图形，如果数据在这条直线的上方，我们就预测y=1；如果数据在这条直线的下方，我们就预测y=0，这条x<sub>1</sub>+x<sub>2</sub>=3的直线就称为决策边界<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/14.png" alt="avatar"></div></li>
+<li>决策边界可以是任何形式，例如在线性回归的时候谈到过使用高阶多项式特征，当然在这里也可以使用，我们添加两个特征，一个是x<sub>1</sub><sup>2<sup>，一个是x<sub>2</sub><sup>2<sup>，假设我们通过训练得到参数θ，如下图所示，当-1+x<sub>1</sub><sup>2<sup>+x<sub>2</sub><sup>2<sup>≥0的时候，预测y=1，即x<sub>1</sub><sup>2<sup>+x<sub>2</sub><sup>2<sup>≥1的时候，预测y=1，画出x<sub>1</sub><sup>2<sup>+x<sub>2</sub><sup>2<sup>=1的图形，为一个以原点为圆心，半径为1的圆，在圆内y=0，在圆外y=1，这是一个圆形的决策边界<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/15.png" alt="avatar"></div></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></sup></li>
+<li>当我们有更高阶的多项式时，我们会得到更复杂的决策边界<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/16.png" alt="avatar"></div></li>
+</ul>
+<h2 id="代价函数-Cost-Function"><a href="#代价函数-Cost-Function" class="headerlink" title="　代价函数(Cost Function)"></a>　代价函数(Cost Function)</h2><ul>
+<li>在线性回归中，代价函数可以写作<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/17.png" alt="avatar"></div></li>
+<li>令<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/18.png" alt="avatar"></div></li>
+<li>简记为<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/19.png" alt="avatar"></div></li>
+<li>在线性回归中，之所以可以使用梯度下降来找到全局最优解是因为代价函数J(θ)是一个凸函数(convex)，但是对于逻辑回归来说，假设函数h<sub>θ</sub>(x)是一个较为复杂的非线性函数，直接带入的话得到的代价函数就不是一个凸函数(non-convex)，这样使用梯度下降法只能找到局部最优解，所以我们需要使用合理的并且是凸函数的代价函数<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/20.png" alt="avatar"></div></li>
+<li>在逻辑回归中，使用如下的Cost(h<sub>θ</sub>(x),y)<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/21.png" alt="avatar"></div></li>
+<li>当y=1时，Cost(h<sub>θ</sub>(x),y)如下图所示，此时，如果我们h<sub>θ</sub>(x)=1，那么Cost=0，即当预测结果和真实结果是一样时，我们的预测不付出任何代价；但当结果不一致时，即h<sub>θ</sub>(x)→0时，我们的预测的代价将趋近于无穷<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/22.png" alt="avatar"></div></li>
+<li>y=0时同理<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/23.png" alt="avatar"></div></li>
+<li>这样对Cost函数处理之后，我们的代价函数就会是一个凸函数，然后就可以使用梯度下降法来找到一个全局最优解</li>
+</ul>
+<h2 id="梯度下降法-Gradient-Descent"><a href="#梯度下降法-Gradient-Descent" class="headerlink" title="梯度下降法(Gradient Descent)"></a>梯度下降法(Gradient Descent)</h2><ul>
+<li>因为y的值只有0或1两种情况，我们将Cost(h<sub>θ</sub>(x),y)用一个式子来表示<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/24.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-逻辑回归/25.png" alt="avatar"></div></div></li>
+<li>在此之后，得到代价函数如下<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/26.png" alt="avatar"><br><div align="center"><img src="/Machine Learning Notes-逻辑回归/27.png" alt="avatar"></div></div></li>
+<li>到这里，后面的步骤就和线性回归很相似了，直接利用梯度下降即可，同样地我们需要求偏导，求完偏导之后我们发现得到的更新规则和之前线性回归的更新规则是一样的，除了假设函数h<sub>θ</sub>(x)不一样，这里如果特征之间的数量差别较大也是需要特征缩放的<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/28.png" alt="avatar"></div></li>
+</ul>
+<h2 id="高级优化算法"><a href="#高级优化算法" class="headerlink" title="　高级优化算法"></a>　高级优化算法</h2><ul>
+<li>除了梯度下降法外，还有其他更加高级更加复杂的算法：Conjugate Gradient、BFGS和L-BFGS<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/29.png" alt="avatar"></div></li>
+<li>下图是一个具体的例子，右边是自己定义的代价函数，下方的options是调用fminunc（最小化无约束函数）所需的函数，initialTheta是初始的θ，然后调用fminunc并传入相应的参数就可以得到最有的θ(optTheta)<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/30.png" alt="avatar"></div></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">function [jVal, gradient] = costFunction(theta)</span><br><span class="line">jVal = (theta(1)-5)^2 + (theta(2)-5)^2;</span><br><span class="line">gradient = zeros(2,1);</span><br><span class="line">gradient(1) = 2*(theta(1)-5);</span><br><span class="line">gradient(1) = 2*(theta(2)-5);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在Octave中演示结果如下<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/31.png" alt="avatar"></div></li>
+</ul>
+<h2 id="多分类问题-Multi-class-Classfication"><a href="#多分类问题-Multi-class-Classfication" class="headerlink" title="多分类问题(Multi-class Classfication)"></a>多分类问题(Multi-class Classfication)</h2><ul>
+<li>下面举了一些多分类(Multiclass Classfication)的例子<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/32.png" alt="avatar"></div></li>
+<li>在之前的二分类的问题中，我们的数据集大概是如下图左侧所示，而现在的多分类的问题中数据如下图右侧所示<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/33.png" alt="avatar"></div></li>
+<li>我们可以使用一对多(Ont-vs-all/One-vs-rest)方法来处理这个问题，即将其分成三个二分类的问题，如下图所示<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/34.png" alt="avatar"></div></li>
+<li>预测时，需要计算出h<sub>θ</sub><sup>(1)</sup>、h<sub>θ</sub><sup>(2)</sup>、h<sub>θ</sub><sup>(3)</sup>的值，并得出最大值，其对应的分类即为预测x的分类<br><div align="center"><img src="/Machine Learning Notes-逻辑回归/35.png" alt="avatar"></div></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Machine-Learning/" rel="tag"># Machine Learning</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/09/13/Machine Learning Notes-Octave教程/" rel="next" title="Machine Learning Notes-Octave教程">
+                <i class="fa fa-chevron-left"></i> Machine Learning Notes-Octave教程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/15/MATLAB Notes/" rel="prev" title="MATLAB Notes">
+                MATLAB Notes <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/1.jpg"
+                alt="Yu Gong" />
+            
+              <p class="site-author-name" itemprop="name">Yu Gong</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#逻辑回归-Logistic-Regression"><span class="nav-number">1.</span> <span class="nav-text">逻辑回归(Logistic Regression)</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分类-Classfication"><span class="nav-number">1.1.</span> <span class="nav-text">分类(Classfication)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#假设函数-Hypothesis-Function"><span class="nav-number">1.2.</span> <span class="nav-text">假设函数(Hypothesis Function)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#决策边界-Decision-Boundary"><span class="nav-number">1.3.</span> <span class="nav-text">决策边界(Decision Boundary)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#代价函数-Cost-Function"><span class="nav-number">1.4.</span> <span class="nav-text">　代价函数(Cost Function)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#梯度下降法-Gradient-Descent"><span class="nav-number">1.5.</span> <span class="nav-text">梯度下降法(Gradient Descent)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级优化算法"><span class="nav-number">1.6.</span> <span class="nav-text">　高级优化算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#多分类问题-Multi-class-Classfication"><span class="nav-number">1.7.</span> <span class="nav-text">多分类问题(Multi-class Classfication)</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yu Gong</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/three.min.js"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/three/canvas_lines.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+
+  
+
+  
+
+</body>
+</html>
